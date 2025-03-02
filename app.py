@@ -2,13 +2,9 @@ import streamlit as st
 import gspread
 import pandas as pd
 from google.oauth2.service_account import Credentials
-import json
 
-# Obtener las credenciales desde los secretos de Streamlit Cloud
-google_creds = st.secrets["google_creds"]
-
-# Convertir el contenido del secreto de JSON a un diccionario Python
-creds_dict = json.loads(google_creds)
+# Obtener las credenciales directamente desde los secretos de Streamlit Cloud
+creds_dict = st.secrets["google_creds"]
 
 # Crear las credenciales utilizando la información del secreto
 scopes = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
@@ -115,3 +111,4 @@ for i, player in enumerate(players, start=2):
 
         except Exception as e:
             st.error(f"Error al cargar los datos de {player}: {e}")
+
