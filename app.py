@@ -1,25 +1,20 @@
-
 import streamlit as st
 import gspread
 import pandas as pd
-from google.oauth2.service_account import Credentials
+import json
 import os
-from google.auth.transport.requests import Request
+from google.oauth2.service_account import Credentials
 
-# Configuración de credenciales
-# scopes = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
-# creds = Credentials.from_service_account_file("credenciales.json", scopes=scopes)
-# client = gspread.authorize(creds)
+# Cargar las credenciales desde los secretos de Streamlit Cloud
+credenciales_json = st.secrets["GOOGLE_APPLICATION_CREDENTIALS"]
 
-#Obtén las credenciales de Google Drive desde el secreto
-credentials_info = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+# Convertir el JSON a un objeto de Python
+credenciales_dict = json.loads(credenciales_json)
 
-creds = Credentials.from_service_account_info(
-    credentials_info,  # Obtén las credenciales desde el secreto
-    scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
-)
+# Crear las credenciales utilizando la información del secreto
+creds = Credentials.from_service_account_info(credenciales_dict, scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"])
 
-# Autenticación con Google Sheets
+# Autorizar con Google Sheets
 client = gspread.authorize(creds)
 
 # ID del archivo de Google Sheets
@@ -85,7 +80,6 @@ with tab_selection[1]:
 
     except Exception as e:
         st.error(f"Error al cargar los datos extra: {e}")
-
 
 # Función para cargar los tramos P2:S2, P11:T22, P23:T34 de cada jugador
 def load_player_extra_data(sheet_name):
