@@ -68,10 +68,10 @@ with tab_selection[1]:
     try:
         range_1, range_2 = load_extra_data()
         
-        st.subheader("🔹 Datos de T2:U16")
+        st.subheader("🔹 Winrate según side")
         st.table(range_1)
 
-        st.subheader("🔹 Datos de W2:X18")
+        st.subheader("🔹 Winrate según objetivos")
         st.table(range_2)
 
     except Exception as e:
