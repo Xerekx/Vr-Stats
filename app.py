@@ -3,10 +3,23 @@ import streamlit as st
 import gspread
 import pandas as pd
 from google.oauth2.service_account import Credentials
+import os
+from google.auth.transport.requests import Request
 
 # Configuración de credenciales
-scopes = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
-creds = Credentials.from_service_account_file("credenciales.json", scopes=scopes)
+# scopes = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
+# creds = Credentials.from_service_account_file("credenciales.json", scopes=scopes)
+# client = gspread.authorize(creds)
+
+#Obtén las credenciales de Google Drive desde el secreto
+credentials_info = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+
+creds = Credentials.from_service_account_info(
+    credentials_info,  # Obtén las credenciales desde el secreto
+    scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
+)
+
+# Autenticación con Google Sheets
 client = gspread.authorize(creds)
 
 # ID del archivo de Google Sheets
