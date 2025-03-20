@@ -85,8 +85,9 @@ def load_player_extra_data(sheet_name):
     range_1 = sheet.get("Q2:T2")
     range_2 = sheet.get("Q11:U22")
     range_3 = sheet.get("Q23:U34")
+    range_4 = sheet.get("Q36:U39")
     
-    return range_1, range_2, range_3
+    return range_1, range_2, range_3, range_4
 
 # 🔥 Pestañas individuales para cada jugador
 for i, player in enumerate(players, start=2):
@@ -98,7 +99,7 @@ for i, player in enumerate(players, start=2):
             st.dataframe(df_player, use_container_width=True)
 
             # Cargar y mostrar los tramos extra sin encabezados
-            range_1, range_2, range_3 = load_player_extra_data(player)
+            range_1, range_2, range_3, range_4 = load_player_extra_data(player)
 
             st.subheader("🔹 KDA")
             st.table(range_1)  # Mostrar sin encabezados
@@ -108,6 +109,9 @@ for i, player in enumerate(players, start=2):
 
             st.subheader("🔹 Campeones más usados 5-8")
             st.table(range_3)  # Mostrar sin encabezados
+
+            st.subheader("🔹 Campeones enemigos 1-8")
+            st.table(range_4)  # Mostrar sin encabezados
 
         except Exception as e:
             st.error(f"Error al cargar los datos de {player}: {e}")
