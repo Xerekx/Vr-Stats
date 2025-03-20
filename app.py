@@ -81,7 +81,7 @@ with tab_selection[1]:
 def load_player_extra_data(sheet_name):
     sheet = client.open_by_key(SHEET_ID).worksheet(sheet_name)
     
-    # Leer tramos Q2:T2, Q11:U22, Q23:U34
+    # Leer tramos Q2:T2, Q11:U22, Q23:U34, Q36:U39
     range_1 = sheet.get("Q2:T2")
     range_2 = sheet.get("Q11:U22")
     range_3 = sheet.get("Q23:U34")
