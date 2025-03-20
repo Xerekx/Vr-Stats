@@ -38,13 +38,13 @@ def load_extra_data():
 
     return range_1, range_2
 
-# Función para cargar los datos de cada jugador (B:N)
+# Función para cargar los datos de cada jugador (B:O)
 def load_player_data(sheet_name):
     sheet = client.open_by_key(SHEET_ID).worksheet(sheet_name)
     data = sheet.get_all_values()
     
-    headers = data[1][1:14]  # Columnas B hasta N (14 columnas)
-    rows = [row[1:14] for row in data[2:]]  # Filas de datos desde la fila 3 en adelante
+    headers = data[1][1:15]  # Columnas B hasta O (15 columnas)
+    rows = [row[1:15] for row in data[2:]]  # Filas de datos desde la fila 3 en adelante
     
     return pd.DataFrame(rows, columns=headers)
 
@@ -81,10 +81,10 @@ with tab_selection[1]:
 def load_player_extra_data(sheet_name):
     sheet = client.open_by_key(SHEET_ID).worksheet(sheet_name)
     
-    # Leer tramos P2:S2, P11:T22, P23:T34
-    range_1 = sheet.get("P2:S2")
-    range_2 = sheet.get("P11:T22")
-    range_3 = sheet.get("P23:T34")
+    # Leer tramos Q2:T2, Q11:U22, Q23:U34
+    range_1 = sheet.get("Q2:T2")
+    range_2 = sheet.get("Q11:U22")
+    range_3 = sheet.get("Q23:U34")
     
     return range_1, range_2, range_3
 
